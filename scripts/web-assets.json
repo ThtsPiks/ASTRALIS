@@ -1,0 +1,4 @@
+{
+  "files": ["index.html", "styles.css"],
+  "directories": ["src", "vendor", "models", "guide", "ui"]
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleExecutable</key>
+  <string>ASTRALIS</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.astralis.game</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>ASTRALIS</string>
+  <key>CFBundleDisplayName</key>
+  <string>ASTRALIS</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleSignature</key>
+  <string>????</string>
+  <key>CFBundleVersion</key>
+  <string>1.0.0</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0.0</string>
+  <key>CFBundleGetInfoString</key>
+  <string>ASTRALIS: The Aetheria Signal 1.0.0, © 2026 TRS Studio. Original intellectual property.</string>
+  <key>NSHumanReadableCopyright</key>
+  <string>© 2026 TRS Studio. ASTRALIS: The Aetheria Signal. Original work. Not affiliated with Elite Dangerous, Star Citizen, NASA, or SpaceX.</string>
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.games</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>12.0</string>
+  <key>LSRequiresNativeExecution</key>
+  <true/>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+  <key>NSSupportsAutomaticGraphicsSwitching</key>
+  <true/>
+  <key>NSPrincipalClass</key>
+  <string>NSApplication</string>
+  <key>CFBundleDocumentTypes</key>
+  <array/>
+  <key>UTExportedTypeDeclarations</key>
+  <array/>
+  <key>UTImportedTypeDeclarations</key>
+  <array/>
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsLocalNetworking</key>
+    <true/>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+  </dict>
+</dict>
+</plist>

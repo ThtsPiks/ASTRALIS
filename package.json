@@ -1,0 +1,67 @@
+{
+  "name": "astralis",
+  "version": "1.0.0",
+  "description": "ASTRALIS \u2014 Deep Space Exploration & Combat Simulator",
+  "author": "ASTRALIS",
+  "license": "ISC",
+  "main": "electron/main.js",
+  "productName": "ASTRALIS",
+  "scripts": {
+    "start": "electron .",
+    "serve": "python3 -m http.server 8765 --bind 127.0.0.1",
+    "build:macos": "bash scripts/build_macos.sh",
+    "build:windows": "node scripts/build-windows.mjs",
+    "check": "node scripts/check.mjs",
+    "test:logic": "node --experimental-loader ./scripts/strip-query-loader.mjs scripts/qa_ledger.mjs && node --experimental-loader ./scripts/strip-query-loader.mjs scripts/qa_omega.mjs && node --experimental-loader ./scripts/strip-query-loader.mjs scripts/qa_fuel_probe.mjs",
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.astralis.game",
+    "productName": "ASTRALIS",
+    "files": [
+      "index.html",
+      "styles.css",
+      "src/**/*",
+      "vendor/**/*",
+      "models/**/*",
+      "guide/**/*",
+      "ui/**/*",
+      "electron/**/*",
+      "!**/.DS_Store"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.games",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "native/icons/AppIcon.icns"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "native/icons/AppIcon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "asarUnpack": [
+      "models/**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "puppeteer": "^23.11.1"
+  },
+  "private": true
+}

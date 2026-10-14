@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>ASTRALIS: The Aetheria Signal</title>
+<link rel="stylesheet" href="vendor/fonts.css" />
+<link rel="stylesheet" href="styles.css?v=load10" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%235fd8ff' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23ffd27a'/%3E%3C/svg%3E" />
+</head>
+<body>
+<div id="app">
+  <div id="canvasWrap" tabindex="0"></div>
+  <canvas id="hud"></canvas>
+
+  <!-- ============ MAP OVERLAY ============ -->
+  <div id="mapWrap" class="hidden">
+    <canvas id="mapCanvas"></canvas>
+    <div id="mapDock">
+      <button type="button" id="mapConfirmBtn" class="mbtn primary">
+        <i id="mapConfirmKey">G</i>
+        <span id="mapConfirmLabel">CONFIRM JUMP</span>
+        <em id="mapDockHint">Click a star on the chart, then this command</em>
+      </button>
+    </div>
+    <aside id="mapPanel"></aside>
+  </div>
+
+  <!-- ============ BOOT / STUDIO CARD ============ -->
+  <div id="boot" class="screen">
+    <div class="boot-void" aria-hidden="true"></div>
+    <div class="boot-stars" aria-hidden="true"></div>
+    <div class="boot-limb" aria-hidden="true"></div>
+    <div class="boot-inner">
+      <svg class="boot-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="26" fill="none" stroke="#5fd8ff" stroke-width="1.2" opacity=".7"/>
+        <ellipse cx="32" cy="32" rx="30" ry="10" fill="none" stroke="#ffd27a" stroke-width="1.15" opacity=".85" transform="rotate(-22 32 32)"/>
+        <circle cx="32" cy="32" r="5.5" fill="#ffe9b8"/>
+        <circle cx="54" cy="24" r="2" fill="#7fd0ff"/>
+      </svg>
+      <div class="boot-studio">TRS STUDIO</div>
+      <div class="boot-presents">PRESENTS</div>
+      <h1 class="boot-title">ASTRALIS</h1>
+      <div class="boot-rule"></div>
+      <div class="boot-sub">The Aetheria Signal</div>
+      <pre id="bootLog" class="boot-log hidden"></pre>
+    </div>
+    <div class="legal">© 2026 TRS Studio. All rights reserved.</div>
+  </div>
+
+  <!-- ============ TITLE ============ -->
+  <div id="title" class="screen hidden">
+    <div class="title-bg"></div>
+    <div class="title-grain"></div>
+    <div class="title-inner">
+      <div class="title-brand">
+        <svg viewBox="0 0 64 64" class="mark-svg" aria-hidden="true">
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#5fd8ff" stroke-width="1.2" opacity=".6"/>
+          <ellipse cx="32" cy="32" rx="30" ry="10" fill="none" stroke="#5fd8ff" stroke-width="1" opacity=".5" transform="rotate(-22 32 32)"/>
+          <circle cx="32" cy="32" r="6" fill="#ffe9b8"/>
+          <circle cx="54" cy="24" r="2" fill="#7fd0ff"/>
+        </svg>
+        <div>
+          <h1 class="title-logo">ASTRALIS</h1>
+          <div class="title-sub">The Aetheria Signal</div>
+        </div>
+      </div>
+
+      <div class="menu-stack" id="titleMenu">
+        <button class="mbtn" data-act="continue" id="btnContinue"><i>01</i><span>CONTINUE</span><em id="continueInfo">No save data found</em></button>
+        <button class="mbtn primary" data-act="new"><i>02</i><span>NEW EXPEDITION</span><em>Sable missed check-in. You took her contract.</em></button>
+        <button class="mbtn" data-act="tutorial"><i>03</i><span>TRAINING</span><em>Frame by frame. What you see, what you press.</em></button>
+        <button class="mbtn" data-act="controls"><i>04</i><span>PILOT GUIDE</span><em>Every key. No frames.</em></button>
+        <button class="mbtn" data-act="settings"><i>05</i><span>SETTINGS</span><em>Graphics, audio, handling</em></button>
+        <button class="mbtn danger" data-act="exit"><i>06</i><span>EXIT</span><em>Close ASTRALIS: The Aetheria Signal</em></button>
+      </div>
+      <div class="legal">© 2026 TRS Studio. All rights reserved.</div>
+    </div>
+  </div>
+
+  <!-- ============ SHIP SELECT ============ -->
+  <div id="shipSelect" class="screen hidden">
+    <div class="ss-inner">
+      <div class="ss-head">
+        <div>
+          <div class="eyebrow">CAREER INITIALIZATION</div>
+          <h2>SELECT YOUR VESSEL</h2>
+        </div>
+        <button class="iconbtn" data-act="back">✕</button>
+      </div>
+      <div class="ss-grid" id="ssGrid"></div>
+      <div class="ss-foot">
+        <div class="callsign">
+          <label for="callsign">CALLSIGN</label>
+          <input id="callsign" maxlength="16" value="NOVA-7" spellcheck="false" />
+        </div>
+        <button class="mbtn primary wide" data-act="launch"><span>LAUNCH</span><em>Undock and enter open space</em></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAUSE ============ -->
+  <div id="pause" class="screen hidden">
+    <div class="pause-inner">
+      <svg class="pause-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="26" fill="none" stroke="#5fd8ff" stroke-width="1.2" opacity=".7"/>
+        <ellipse cx="32" cy="32" rx="30" ry="10" fill="none" stroke="#ffd27a" stroke-width="1.15" opacity=".85" transform="rotate(-22 32 32)"/>
+        <circle cx="32" cy="32" r="5.5" fill="#ffe9b8"/>
+      </svg>
+      <div class="eyebrow">SIMULATION HALTED</div>
+      <h2>PAUSED</h2>
+      <div class="menu-stack">
+        <button class="mbtn" data-act="resume"><i>01</i><span>RESUME FLIGHT</span><em>Return to the cockpit</em></button>
+        <button class="mbtn" data-act="controls"><i>02</i><span>PILOT GUIDE</span><em>Every key</em></button>
+        <button class="mbtn" data-act="achievements"><i>03</i><span>ACHIEVEMENTS</span><em>Career marks and Steam unlocks</em></button>
+        <button class="mbtn" data-act="settings"><i>04</i><span>SETTINGS</span><em>Graphics, audio, handling</em></button>
+        <button class="mbtn" data-act="save" id="btnSave"><i>05</i><span>SAVE GAME</span><em id="saveHint">Writes this career. Title → CONTINUE.</em></button>
+        <button class="mbtn danger" data-act="quit"><i>06</i><span>ABANDON TO TITLE</span><em>Leave this session</em></button>
+      </div>
+      <div id="pauseStats" class="pause-stats"></div>
+    </div>
+  </div>
+
+  <!-- ============ STATION ============ -->
+  <div id="station" class="screen hidden">
+    <div class="st-wrap">
+      <header class="st-head">
+        <div class="st-identity">
+          <div class="st-seal" aria-hidden="true"><i></i><b></b></div>
+          <div class="st-nameplate">
+            <div class="st-kicker" id="stType">ORBITAL PORT · BERTH SECURE</div>
+            <h2 id="stName">STATION</h2>
+            <div class="eyebrow" id="stSystem">—</div>
+          </div>
+        </div>
+        <div class="st-head-right">
+          <div class="st-credits"><small>AVAILABLE FUNDS</small><div><span id="stCredits">0</span><em>CR</em></div></div>
+          <button class="mbtn small" data-act="undock"><span>UNDOCK</span></button>
+        </div>
+      </header>
+      <div class="st-console">
+        <nav class="st-tabs" id="stTabs" aria-label="Station services"></nav>
+        <section class="st-main">
+          <div class="st-berthline"><span><i></i> DOCKING COLLAR SEALED</span><span id="stMeta"></span></div>
+          <main class="st-body" id="stBody"></main>
+        </section>
+      </div>
+      <footer class="st-footer"><span>ASTRALIS PORT AUTHORITY</span><span>FLIGHT CONTROL SUSPENDED WHILE DOCKED</span></footer>
+    </div>
+  </div>
+
+  <!-- ============ DEATH ============ -->
+  <div id="death" class="screen hidden">
+    <div class="death-inner">
+      <div class="eyebrow bad">VESSEL DESTROYED</div>
+      <h2>SIGNAL LOST</h2>
+      <p id="deathInfo"></p>
+      <div class="menu-stack">
+        <button class="mbtn primary" data-act="respawn"><span>REBUY INSURANCE CLONE</span><em id="respawnCost"></em></button>
+        <button class="mbtn danger" data-act="quit"><span>RETURN TO TITLE</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ BRIEFING ============ -->
+  <div id="briefing" class="screen hidden">
+    <div class="br-photo" id="brPhoto"></div>
+    <div class="br-plate">
+      <button class="iconbtn br-x" data-act="brief-close" type="button">✕</button>
+      <div class="eyebrow" id="brIndex">TRAINING · 01 / 08</div>
+      <h2 id="brTitle">HOW TO READ THIS</h2>
+      <p class="br-lead" id="brLead" hidden></p>
+      <p class="br-body" id="brBody" hidden></p>
+      <div class="br-notes" id="brNotes"></div>
+      <div class="br-nav">
+        <button class="mbtn" type="button" data-act="brief-prev" id="brPrev"><i>←</i><span>PREV</span><em>Last still</em></button>
+        <button class="mbtn primary" type="button" data-act="brief-next" id="brNext"><i>→</i><span>NEXT</span><em>Enter</em></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ GENERIC MODAL (controls/settings/log) ============ -->
+  <div id="modal" class="screen hidden">
+    <div class="modal-inner">
+      <div class="modal-head">
+        <h2 id="modalTitle">TITLE</h2>
+        <button class="iconbtn" data-act="close">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ============ JUMP CINEMATIC ============ -->
+  <div id="jumpFx" class="hidden">
+    <div class="jump-flash"></div>
+    <div class="jump-text" id="jumpText">FRAME SHIFT ENGAGED</div>
+  </div>
+
+  <div id="vignette"></div>
+  <div id="fade" class="hidden"></div>
+  <div id="loadScreen" class="hidden" aria-live="polite">
+    <div class="load-foot">
+      <div class="load-spin" aria-hidden="true"></div>
+      <div class="load-copy">
+        <b>ASTRALIS</b>
+        <span>The Aetheria Signal</span>
+      </div>
+      <div class="load-track" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+  <div id="cinema" class="hidden" aria-live="polite">
+    <div class="cn-bar cn-top"></div>
+    <div class="cn-bar cn-bot"></div>
+    <div class="cn-card">
+      <div class="cn-kicker" id="cnKicker"></div>
+      <h2 id="cnTitle"></h2>
+    </div>
+    <div class="cn-line">
+      <div class="cn-who" id="cnWho"></div>
+      <p id="cnText"></p>
+    </div>
+    <div class="cn-credits" id="cnCredits">
+      <div class="cn-credits-track" id="cnCreditsTrack"></div>
+    </div>
+    <button type="button" class="cn-skip" id="cnSkip">SKIP · ESC</button>
+    <div class="cn-hint">Press SPACE for the next shot</div>
+  </div>
+  <div id="coach" class="hidden" aria-live="polite">
+    <div class="coach-step" id="coachStep">STEP 1 / 5</div>
+    <div class="coach-keys" id="coachKeys"><kbd>W</kbd></div>
+    <div class="coach-do" id="coachDo">HOLD W</div>
+    <div class="coach-bar"><i id="coachBar"></i></div>
+    <div class="coach-wait" id="coachWait">Keep it down.</div>
+    <div class="coach-tip" id="coachTip">Click the window once, then hold W.</div>
+  </div>
+  <div id="toastHost"></div>
+</div>
+<script type="module" src="src/main.js?v=port42"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# Installed dependencies and generated builds
+node_modules/
+dist/
+*.app/
+native/windows/bin/
+native/windows/obj/
+data/cache/
+.venv/
+__pycache__/
+*.pyc
+
+# Local state, credentials and editor files
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+*.log
+logs/
+tmp/
+.audit-out/
+.cache/
+.idea/
+.vscode/
+.cursor/
+.codex/
+.python-version
+steam_appid.txt
+
+# Captures and marketing output
+*.mp4
+*.mov
+*.zip
+*.dmg
+*.exe
+*.dll
+telegram/
+ref-frames/
+steam/store/
